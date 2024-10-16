@@ -17,7 +17,7 @@ struct PizzaOrders: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(vm.orders) { order in
+                ForEach(vm.orders.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })) { order in
                     VStack(alignment: .leading) {
                         HStack {
                             Text("\(order.size ?? "Pizza Size")")
@@ -39,7 +39,6 @@ struct PizzaOrders: View {
                         Text("Order Date: \(formattedDate(order.timestamp))")
                             .font(.subheadline)
                             .foregroundColor(.gray)
-                        //Divider()
                     }
                     .padding(.vertical, 5)
                 }
